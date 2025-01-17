@@ -1,3 +1,5 @@
+using IronSourceJSON;
+using Newtonsoft.Json;
 using System;
 using System.Buffers;
 using System.Collections;
@@ -344,11 +346,12 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    gameSessions intalResponseData(byte[] data) {
+    GameSessions intalResponseData(byte[] data) {
         try {
             string jsonString = Encoding.UTF8.GetString(data);
             Debug.Log($"Processed SpecificDataType: {jsonString}");
-            gameSessions session = JsonUtility.FromJson<gameSessions>(jsonString);
+            GameSessions session = JsonConvert.DeserializeObject<GameSessions>(jsonString);
+            Debug.Log($"Processed SpecificDataType: {session.gameSessions.Count}");
             return session;
         } catch (Exception e) {
             Debug.LogError($"Error processing response data: {e.Message}");

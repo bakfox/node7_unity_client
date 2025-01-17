@@ -22,7 +22,7 @@ public class roomManager : MonoBehaviour
     [SerializeField] GameObject roomBase;
     [SerializeField] List<GameObject> roomList = new List<GameObject>();
 
-    [SerializeField] gameSessions sessionsData;
+    [SerializeField] GameSessions sessionsData;
     [SerializeField] InputField gameIdInput;
 
     public inSession nowSessionData;// 방 들어가면 넣어주기!
@@ -32,7 +32,7 @@ public class roomManager : MonoBehaviour
         instance = this;
     }
 
-    public void startRoom(gameSessions sessions , GameObject ui)
+    public void startRoom(GameSessions sessions , GameObject ui)
     {
         sessionsData = sessions;
         poolMaker();
@@ -42,8 +42,9 @@ public class roomManager : MonoBehaviour
 
         nameUi.text = GameManager.instance.deviceId; 
 
-        if (sessionsData.games.Count != 0)
+        if (sessionsData.gameSessions.Count != 0)
         {
+            Debug.Log(sessionsData.gameSessions.Count);
             noRoomUi.SetActive(false);
             nowPageGet();
         }
@@ -51,12 +52,12 @@ public class roomManager : MonoBehaviour
     }
     public void nowPageGet()
     {
-        int max = (nowPage + 1) * maxRoomObject < sessionsData.games.Count ? (nowPage + 1) * maxRoomObject : sessionsData.games.Count;
+        int max = (nowPage + 1) * maxRoomObject < sessionsData.gameSessions.Count ? (nowPage + 1) * maxRoomObject : sessionsData.gameSessions.Count;
         int count = 0;
         for (int i = nowPage * maxRoomObject; i < max; i++ )
         {
             roomList[count].SetActive(true);
-            roomList[count].GetComponent<rooms>().roomData = sessionsData.games[i];
+            roomList[count].GetComponent<rooms>().roomData = sessionsData.gameSessions[i];
             roomList[count].GetComponent<rooms>().settingRoom();
             count++;
         }

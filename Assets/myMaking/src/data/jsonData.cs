@@ -11,9 +11,9 @@ public class jsonData : MonoBehaviour
 // ¹æ °ü·Ã
 
 [System.Serializable]
-public class gameSessions
+public class GameSessions
 {
-    public List<gameSession> games;
+    public List<gameSession> gameSessions;
 }
 
 [System.Serializable]
